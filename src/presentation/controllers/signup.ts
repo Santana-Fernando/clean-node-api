@@ -1,11 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HttpResponse, HttpRequest } from '../protocols/http'
 import { MissingParamError, InvalidParamError } from '../errors'
 import { badRequest, serverError } from '../helpers/http-helper'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Controller } from '../protocols/controller'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EmailValidator } from '../protocols/email-validator'
+import { EmailValidator, Controller, HttpResponse, HttpRequest } from '../protocols'
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
 

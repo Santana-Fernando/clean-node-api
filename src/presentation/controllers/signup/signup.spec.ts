@@ -1,11 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from './singup-protocols'
+import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 import { SignUpController } from './signup'
-import { MissingParamError, InvalidParamError, ServerError } from '../errors'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EmailValidator } from '../protocols/email-validator'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AccountModel } from '../../domain/models/account'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AddAccount, AddAccountModel } from '../../domain/usecases/add-account'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {

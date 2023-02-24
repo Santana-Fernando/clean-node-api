@@ -1,9 +1,7 @@
+import { MissingParamError, InvalidParamError } from '../../errors'
+import { badRequest, serverError } from '../../helpers/http-helper'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AddAccount } from '../../domain/usecases/add-account'
-import { MissingParamError, InvalidParamError } from '../errors'
-import { badRequest, serverError } from '../helpers/http-helper'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EmailValidator, Controller, HttpResponse, HttpRequest } from '../protocols'
+import { EmailValidator, Controller, HttpResponse, HttpRequest, AddAccount } from './singup-protocols'
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
   private readonly addAccount: AddAccount

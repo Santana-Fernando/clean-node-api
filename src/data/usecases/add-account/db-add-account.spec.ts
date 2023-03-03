@@ -1,5 +1,3 @@
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AccountModel, AddAccountModel, Encrypter, AddAccountRepository } from './db-add-account-protocols'
 import { DbAddAccount } from './db-add-account'
 

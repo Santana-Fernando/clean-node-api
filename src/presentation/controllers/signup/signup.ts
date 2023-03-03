@@ -1,6 +1,5 @@
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { EmailValidator, Controller, HttpResponse, HttpRequest, AddAccount } from './singup-protocols'
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator

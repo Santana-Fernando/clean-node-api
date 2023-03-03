@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { AccountMongoRepository } from './account'
 import { MongoHelper } from '../helpers/mongo-helper'
 
@@ -9,7 +10,7 @@ describe('Account Mongo Repository', () => {
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
- 
+
   beforeEach(async () => {
     const accountCollection = MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})

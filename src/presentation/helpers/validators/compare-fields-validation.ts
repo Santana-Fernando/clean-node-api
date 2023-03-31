@@ -7,7 +7,7 @@ export class CompareFieldsValidation implements Validation {
 
   constructor (fieldName: string, fieldNameToCompare: string) {
     this.fieldName = fieldName
-    this.fieldNameToCompare = fieldName
+    this.fieldNameToCompare = fieldNameToCompare
   }
 
   validate (input: any): Error {

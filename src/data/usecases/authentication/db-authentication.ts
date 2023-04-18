@@ -1,7 +1,7 @@
+import { UpdateAccessTokenRepository } from '../../protocols/db/account/update-access-token-repository'
 import {
   AuthenticationModel,
   HashComparer,
-  UpdateAccessTokenRepository,
   Encrypter,
   LoadAccountByEmailRepository,
   Authentication

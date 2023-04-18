@@ -2,11 +2,11 @@ import { DbAuthentication } from './db-authentication'
 import {
   AuthenticationModel,
   HashComparer,
-  UpdateAccessTokenRepository,
   Encrypter,
   LoadAccountByEmailRepository,
   AccountModel
 } from './db-authenticatio-protocols'
+import { UpdateAccessTokenRepository } from '../../protocols/db/account/update-access-token-repository'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',

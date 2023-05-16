@@ -13,7 +13,7 @@ const makeFakeAccount = (): AccountModel => {
   }
 }
 
-const makeLoadAccountByTokenStub = (): LoadAccountByToken => {
+const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accessToken: string, role?: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()))
@@ -29,7 +29,7 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const loadAccountByTokenStub = makeLoadAccountByTokenStub()
+  const loadAccountByTokenStub = makeLoadAccountByToken()
   const sut = new AuthMiddleware(loadAccountByTokenStub)
 
   return {

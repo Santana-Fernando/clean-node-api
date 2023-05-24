@@ -22,7 +22,7 @@ const makeFakeSurveys = (): SurveyModel[] => {
   }]
 }
 
-const makeFakeLoadSurveys = (): LoadSurveys => {
+const makeLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
     async load (): Promise<SurveyModel[]> {
       return new Promise(resolve => resolve(makeFakeSurveys()))
@@ -37,7 +37,7 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const loadSurveysStub = makeFakeLoadSurveys()
+  const loadSurveysStub = makeLoadSurveys()
   const sut = new LoadSurveysController(loadSurveysStub)
 
   return {

@@ -29,9 +29,9 @@ describe('Survey Mongo Repository', () => {
       question: 'any_question',
       answers: [{
         image: 'any_image',
-        answers: 'any_answer'
+        answer: 'any_answer'
       },{
-        answers: 'other_answer'
+        answer: 'other_answer'
       }],
       date: new Date()
     })

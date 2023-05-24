@@ -1,9 +1,10 @@
 import { LoadSurveysController } from './load-surveys-controller'
 import { Controller, LoadSurveys, SurveyModel } from './load-surveys-controller-protocols'
+import { ok } from '../../../helpers/http/http-helper'
 import MockDate from 'mockdate'
 
-const makeFakeSurveys = (): SurveyModel[] => {
-  return [{
+const makeFakeSurveys = (): SurveyModel[] => (
+  [{
     id: 'any_id',
     question: 'any_question',
     answers: [{
@@ -20,7 +21,7 @@ const makeFakeSurveys = (): SurveyModel[] => {
     }],
     date: new Date()
   }]
-}
+)
 
 const makeLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
@@ -55,10 +56,16 @@ describe('', () => {
     MockDate.reset()
   })
 
-  test('', async () => {
+  test('Should call LoadSurveys', async () => {
     const { loadSurveysStub, sut } = makeSut()
     const loadSpy = jest.spyOn(loadSurveysStub, 'load')
     await sut.handle({})
     expect(loadSpy).toHaveBeenCalled()
+  })
+
+  test('Should call LoadSurveys', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({})
+    expect(httpResponse).toEqual(ok(makeFakeSurveys()))
   })
 })

@@ -26,7 +26,7 @@ describe('Survey Routes', () => {
   })
 
   describe('POST/surveys', () => {
-    test('Should return 403 on add survey without accessToken', async () => {
+    test('Should return 403 on load surveys without accessToken', async () => {
       await request(app)
         .post('/api/surveys')
         .send({
@@ -45,8 +45,7 @@ describe('Survey Routes', () => {
       const res = await accountCollection.insertOne({
         name: 'fernando',
         email: 'fernando@gmail.com',
-        password: '123',
-        role: 'admin'
+        password: '123'
       })
 
       const { insertedId: id } = res
@@ -61,86 +60,8 @@ describe('Survey Routes', () => {
       })
 
       await request(app)
-        .post('/api/surveys')
+        .get('/api/surveys')
         .set('x-access-token', accessToken)
-        .send({
-          question: 'Question',
-          answers: [{
-            answer: 'Answers 1',
-            image: 'http://image-name.com'
-          }, {
-            answer: 'Answers 2'
-          }]
-        })
-        .expect(204)
-    })
-  })
-})
-
-describe('Survey Routes', () => {
-  beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL as string)
-  })
-
-  afterAll(async () => {
-    await MongoHelper.disconnect()
-  })
-
-  beforeEach(async () => {
-    surveyCollection = await MongoHelper.getCollection('surveys')
-    await surveyCollection.deleteMany({})
-
-    accountCollection = await MongoHelper.getCollection('accounts')
-    await accountCollection.deleteMany({})
-  })
-
-  describe('POST/surveys', () => {
-    test('Should return 403 on add survey without accessToken', async () => {
-      await request(app)
-        .post('/api/surveys')
-        .send({
-          question: 'Question',
-          answers: [{
-            answer: 'Answers 1',
-            image: 'http://image-name.com'
-          }, {
-            answer: 'Answers 2'
-          }]
-        })
-        .expect(403)
-    })
-
-    test('Should return 204 on add survey with valid accessToken', async () => {
-      const res = await accountCollection.insertOne({
-        name: 'fernando',
-        email: 'fernando@gmail.com',
-        password: '123',
-        role: 'admin'
-      })
-
-      const { insertedId: id } = res
-      const accessToken = sign({ id }, env.jwtSecret)
-
-      await accountCollection.updateOne({
-        _id: id
-      }, {
-        $set: {
-          accessToken
-        }
-      })
-
-      await request(app)
-        .post('/api/surveys')
-        .set('x-access-token', accessToken)
-        .send({
-          question: 'Question',
-          answers: [{
-            answer: 'Answers 1',
-            image: 'http://image-name.com'
-          }, {
-            answer: 'Answers 2'
-          }]
-        })
         .expect(204)
     })
   })
@@ -150,6 +71,39 @@ describe('Survey Routes', () => {
       await request(app)
         .get('/api/surveys')
         .expect(403)
+    })
+
+    test('Should return 200 on add survey with valid accessToken', async () => {
+      const res = await accountCollection.insertOne({
+        name: 'fernando',
+        email: 'fernando@gmail.com',
+        password: '123',
+        role: 'admin'
+      })
+      const { insertedId: id } = res
+      const accessToken = sign({ id }, env.jwtSecret)
+
+      await accountCollection.updateOne({
+        _id: id
+      }, {
+        $set: {
+          accessToken
+        }
+      })
+
+      await surveyCollection.insertMany([{
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }],
+        date: new Date()
+      }])
+
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200)
     })
   })
 })

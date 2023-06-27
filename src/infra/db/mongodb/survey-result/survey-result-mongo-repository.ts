@@ -6,7 +6,7 @@ import { MongoHelper } from '../helpers/mongo-helper'
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
   async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
-    await surveyResultCollection.findOneAndUpdate({
+    const res = await surveyResultCollection.findOneAndUpdate({
       surveyId: data.surveyId,
       accountId: data.accountId
     }, {
@@ -15,14 +15,10 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
         date: data.date
       }
     }, {
-      upsert: true
+      upsert: true,
+      returnDocument: 'after'
     })
 
-    const result = await surveyResultCollection.findOne({
-      surveyId: data.surveyId,
-      accountId: data.accountId
-    })
-
-    return result && MongoHelper.map(result)
+    return res.value && MongoHelper.map(res.value)
   }
 }

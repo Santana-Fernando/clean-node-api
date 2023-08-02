@@ -189,6 +189,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
         answers: '$answers'
       }).build()
     const surveyResult = await surveyResultCollection.aggregate(query).toArray()
-    return surveyResult?.length ? surveyResult[0] : null as any
+    return surveyResult.length ? surveyResult[0] : null as any
   }
 }
